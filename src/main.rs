@@ -1,3 +1,4 @@
+use std::env;
 use std::fs::File;
 use std::io::{BufReader, BufWriter, Write};
 
@@ -37,7 +38,9 @@ impl Record {
 }
 
 fn main() -> std::io::Result<()> {
-    let file = File::open("file.xml")?;
+    let args: Vec<String> = env::args().collect();
+    let file_path = &args[1];
+    let file = File::open(file_path)?;
     let file = BufReader::new(file); // Buffering is important for performance
 
     let mut res: Vec<Record> = Vec::new();
